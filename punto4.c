@@ -16,26 +16,20 @@ int generar_primos(int iteracion) {
     int cuenta = 0;
     int suma = 0;
     int num = 2;  // Comenzamos desde el primer número primo
-
-    // Saltamos a los primos de acuerdo a la iteración actual
-    int inicio_primo = 1;
-    for (int i = 0; i < iteracion + 1; i++) {
-        while (!es_primo(num)) num++;
-        if (i < iteracion) {
-            num++;
-        }
-    }
-    inicio_primo = num;
+    int inicio_primo = iteracion + 1;      // Índice del primer primo para esta iteración
+    int fin_primo = 2 * (iteracion + 1);   // Índice del último primo para esta iteración
 
     printf("Proceso hijo PID %d (iteración %d): ", getpid(), iteracion);
 
-    while (cuenta < 2 * (iteracion + 1)) {
+    for (int i = 1; i <= fin_primo; num++) {  // i cuenta el índice del primo encontrado
         if (es_primo(num)) {
-            printf("%d ", num);
-            suma += num;
-            cuenta++;
+            if (i >= inicio_primo) {
+                printf("%d ", num);
+                suma += num;
+                cuenta++;
+            }
+            i++;
         }
-        num++;
     }
 
     printf("\n");
